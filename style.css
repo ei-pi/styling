@@ -1,5 +1,5 @@
 * {
-    font-family: "Jira Code", "Menlo", monospace;
+    font-family: "Fira Code", "Menlo", monospace;
 }
 
 h2:hover,
@@ -20,7 +20,9 @@ code pre {
     padding: 5px;
 }
 
-table, tr, td {
+table,
+tr,
+td {
     box-sizing: border-box;
     border-width: 1px;
     border-style: solid;
@@ -29,11 +31,6 @@ table, tr, td {
 
 td {
     padding: 2px 5px;
-}
-
-@font-face {
-    font-family: "Jira Code";
-    src: url("./FiraCode-Medium.ttf");
 }
 
 @media (prefers-color-scheme: dark) {
@@ -58,7 +55,9 @@ td {
         background-color: #111;
     }
 
-    table, tr, td {
+    table,
+    tr,
+    td {
         border-color: #999;
     }
 
@@ -97,7 +96,9 @@ td {
         background-color: #DDD;
     }
 
-    table, tr, td {
+    table,
+    tr,
+    td {
         border-color: #333;
     }
 
@@ -112,4 +113,15 @@ td {
     a:hover {
         color: hsl(0, 80%, 30%);
     }
+}
+
+@font-face {
+    font-family: "Fira Code";
+    src: local("Fira Code"), url("./FiraCode-Medium.ttf");
+}
+
+@font-face {
+    font-family: "Fira Code";
+    font-weight: bold;
+    src: local("Fira Code"), url("./FiraCode-Bold.ttf");
 }

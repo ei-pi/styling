@@ -1,3 +1,7 @@
+code pre span[class^="code-"]:hover {
+    cursor: pointer;
+}
+
 @media (prefers-color-scheme: dark) {
     .code-comment {
         color: #6A9955;
@@ -20,6 +24,7 @@
     }
 
     .code-const,
+    .code-enum-member,
     .code-readonly {
         color: #4FC1FF;
     }
@@ -30,6 +35,7 @@
     }
 
     .code-type,
+    .code-generic,
     .code-class,
     .code-interface,
     .code-enum,
@@ -57,8 +63,72 @@
         color: #569CD6;
     }
 
-    .code-ctrl-flow {
+    .code-control-flow {
         color: #C586C0;
+    }
+
+    .code-comment:hover {
+        background-color: #6A995540;
+    }
+
+    .code-operator:hover,
+    .code-punctuation:hover {
+        background-color: #FFFFFF40;
+    }
+
+    .code-noisy-whitespace:hover {
+        background-color: #FFFFFF08;
+    }
+
+    .code-parameter:hover,
+    .code-variable:hover,
+    .code-attribute:hover,
+    .code-property:hover {
+        background-color: #9CDCFE40;
+    }
+
+    .code-const:hover,
+    .code-enum-member:hover,
+    .code-readonly:hover {
+        background-color: #4FC1FF40;
+    }
+
+    .code-number:hover,
+    .code-symbol:hover {
+        background-color: #B5CEA840;
+    }
+
+    .code-type:hover,
+    .code-generic:hover,
+    .code-class:hover,
+    .code-interface:hover,
+    .code-enum:hover,
+    .code-record:hover,
+    .code-decorator:hover {
+        background-color: #4EC9B040;
+    }
+
+    .code-string:hover {
+        background-color: #CE917840;
+    }
+
+    .code-regexp:hover {
+        background-color: #D1686940;
+    }
+
+    .code-function:hover,
+    .code-method:hover {
+        background-color: #DCDCAA40;
+    }
+
+    .code-doctag:hover,
+    .code-keyword:hover,
+    .code-literal:hover {
+        background-color: #569CD640;
+    }
+
+    .code-control-flow:hover {
+        background-color: #C586C040;
     }
 }
 
@@ -73,7 +143,7 @@
     }
 
     .code-noisy-whitespace {
-        color: #0002;
+        color: #00000020;
     }
 
     .code-paramater,
@@ -84,6 +154,7 @@
     }
 
     .code-const,
+    .code-enum-member,
     .code-readonly {
         color: #0071C1;
     }
@@ -94,6 +165,7 @@
     }
 
     .code-type,
+    .code-generic,
     .code-class,
     .code-interface,
     .code-enum,
@@ -121,7 +193,71 @@
         color: #00F;
     }
 
-    .code-ctrl-flow {
+    .code-control-flow {
         color: #AF00DB;
+    }
+
+    .code-comment:hover {
+        background-color: #00840040;
+    }
+
+    .code-operator:hover,
+    .code-punctuation:hover {
+        background-color: #00000040;
+    }
+
+    .code-noisy-whitespace:hover {
+        background-color: #00000010;
+    }
+
+    .code-paramater:hover,
+    .code-variable:hover,
+    .code-attribute:hover,
+    .code-property:hover {
+        background-color: #000F8040;
+    }
+
+    .code-const:hover,
+    .code-enum-member:hover,
+    .code-readonly:hover {
+        background-color: #0071C140;
+    }
+
+    .code-number:hover,
+    .code-symbol:hover {
+        background-color: #09865840;
+    }
+
+    .code-type:hover,
+    .code-generic:hover,
+    .code-class:hover,
+    .code-interface:hover,
+    .code-enum:hover,
+    .code-record:hover,
+    .code-decorator:hover {
+        background-color: #267F9940;
+    }
+
+    .code-string:hover {
+        background-color: #A3151540;
+    }
+
+    .code-regexp:hover {
+        background-color: #8B153E40;
+    }
+
+    .code-function:hover,
+    .code-method:hover {
+        background-color: #795d2640;
+    }
+
+    .code-doctag:hover,
+    .code-keyword:hover,
+    .code-literal:hover {
+        background-color: #0000FF40;
+    }
+
+    .code-control-flow:hover {
+        background-color: #AF00DB40;
     }
 }
