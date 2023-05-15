@@ -1,0 +1,115 @@
+* {
+    font-family: "Jira Code", "Menlo", monospace;
+}
+
+h2:hover,
+h3:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+div.code-block pre {
+    margin-top: 0;
+}
+
+code {
+    font-family: "Menlo", monospace;
+}
+
+code pre {
+    padding: 5px;
+}
+
+table, tr, td {
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+}
+
+td {
+    padding: 2px 5px;
+}
+
+@font-face {
+    font-family: "Jira Code";
+    src: url("./FiraCode-Medium.ttf");
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #222;
+        color: white;
+    }
+
+    code {
+        background-color: #333;
+    }
+
+    label.correct {
+        color: #090;
+    }
+
+    label.incorrect {
+        color: #900;
+    }
+
+    code pre {
+        background-color: #111;
+    }
+
+    table, tr, td {
+        border-color: #999;
+    }
+
+    a {
+        color: hsl(240, 80%, 70%);
+    }
+
+    a:visited {
+        color: hsl(300, 80%, 70%);
+    }
+
+    a:hover {
+        color: hsl(0, 80%, 70%);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: #EEE;
+        color: #222;
+    }
+
+    code {
+        background-color: #D8D8D8;
+    }
+
+    label.correct {
+        color: #080;
+    }
+
+    label.incorrect {
+        color: #800;
+    }
+
+    code pre {
+        background-color: #DDD;
+    }
+
+    table, tr, td {
+        border-color: #333;
+    }
+
+    a {
+        color: hsl(240, 80%, 30%);
+    }
+
+    a:visited {
+        color: hsl(300, 80%, 30%);
+    }
+
+    a:hover {
+        color: hsl(0, 80%, 30%);
+    }
+}

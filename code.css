@@ -1,0 +1,127 @@
+@media (prefers-color-scheme: dark) {
+    .code-comment {
+        color: #6A9955;
+    }
+
+    .code-operator,
+    .code-punctuation {
+        color: #FFF;
+    }
+
+    .code-noisy-whitespace {
+        color: #FFF1;
+    }
+
+    .code-parameter,
+    .code-variable,
+    .code-attribute,
+    .code-property {
+        color: #9CDCFE;
+    }
+
+    .code-const,
+    .code-readonly {
+        color: #4FC1FF;
+    }
+
+    .code-number,
+    .code-symbol {
+        color: #B5CEA8;
+    }
+
+    .code-type,
+    .code-class,
+    .code-interface,
+    .code-enum,
+    .code-record,
+    .code-decorator {
+        color: #4EC9B0;
+    }
+
+    .code-string {
+        color: #CE9178;
+    }
+
+    .code-regexp {
+        color: #D16869;
+    }
+
+    .code-function,
+    .code-method {
+        color: #DCDCAA;
+    }
+
+    .code-doctag,
+    .code-keyword,
+    .code-literal {
+        color: #569CD6;
+    }
+
+    .code-ctrl-flow {
+        color: #C586C0;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .code-comment {
+        color: #008400;
+    }
+
+    .code-operator,
+    .code-punctuation {
+        color: #000000;
+    }
+
+    .code-noisy-whitespace {
+        color: #0002;
+    }
+
+    .code-paramater,
+    .code-variable,
+    .code-attribute,
+    .code-property {
+        color: #000F80;
+    }
+
+    .code-const,
+    .code-readonly {
+        color: #0071C1;
+    }
+
+    .code-number,
+    .code-symbol {
+        color: #098658;
+    }
+
+    .code-type,
+    .code-class,
+    .code-interface,
+    .code-enum,
+    .code-record,
+    .code-decorator {
+        color: #267F99;
+    }
+
+    .code-string {
+        color: #A31515;
+    }
+
+    .code-regexp {
+        color: #8B153E;
+    }
+
+    .code-function,
+    .code-method {
+        color: #795d26;
+    }
+
+    .code-doctag,
+    .code-keyword,
+    .code-literal {
+        color: #00F;
+    }
+
+    .code-ctrl-flow {
+        color: #AF00DB;
+    }
+}

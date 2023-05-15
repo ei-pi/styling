@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styling guide</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="code.css">
+    <script src="./index.js" defer></script>
+</head>
+
+<body>
+    <main>
+        <h2>Preamble</h2>
+        <p>
+            This document serves as a general style guide in order to keep the project's formatting consistent and to
+            resolve any organizational disputes before they happen by proposing a set of guidelines to follow. These
+            will cover all sorts of subjects, from case to naming to structure. Some of these will be more opinionated
+            than others, or might warrant a justification: in general, a short reason for the style will be given, as
+            well as a description of what it entails. For the sake of familiarity, the code examples will be given in
+            Java, unless otherwise noted. It's also worth noting that a lot of these rules were written with C-style
+            languages in mind. This guide might thus be completely ridiculous, or simply incompatible, with other
+            languages whose syntax may greatly differ.
+            <br>
+            <br>
+            <em>This document is currently a draft; please feel free to suggest any changes to it by linking the
+                relevant suggestion.</em>
+        </p>
+
+        <h2>Spacing</h2>
+        <p>
+            "Spacing" generally refers to the space between characters in source code, whether it be indentation or
+            spacing on a particular line. In languages inheriting their syntax from C (appropriately-named "C-style"
+            languages), whitespace is purely cosmetic; for this reason, various opinions have been formed over where it
+            should and shouldn't go, and how much there should be. Here's ours.
+            <br>
+            <br>
+            Note: spacing rules, when defined as "before this" or "after that", don't stack: for example, as will be
+            discussed, the plus operator should be surrounded by spaces, and the unary negation operator should be
+            preceded by one. However, if an unary subtraction follows an addition, there should only be one space
+            between the two—write <code>1 + -x</code>. In a similar vein, if an operator states that no space should
+            follow it, but the operator following it states that it should be preceded by one. For example, as will be
+            seen, closing angle brackets are not followed by spaces, but opening curly braces are—the correct resolution
+            is thus <code>Array&lt;T&gt; {}</code>.
+        </p>
+
+        <h3>Indentation</h3>
+        <p>Indentation is done with spaces, not tabs, and the spaces per level is 4. Blocks always add an indentation
+            level, and if an expression is broken onto multiple lines, a level is also added.</p>
+
+        <p>The exception to this rule is the indentation of documentation comments: the opening segment (the
+            <code>/*</code>) is indented normally, but every line thereafter, including the closing segment (the
+            <code>*/</code>), is indented with a single additional space.
+        </p>
+
+        <h3>Around operators</h3>
+        <p>
+            Generally, most operators are surrounded by spaces: the arithmetic, comparison, relational, bitwise, logical
+            and assignment operators all take spaces before and after them. However, <a
+                href="https://en.wikipedia.org/wiki/Unary_operation#Examples_from_programming_languages">unary
+                operators</a> only take one space, and its position depends on if the operator is postfix or prefix: in
+            the case of a prefix operator, the space goes before the operator, and in the case of a postfix one, it goes
+            after, unless a punctuation mark or closing bracket is present, in which case no space is placed. This rule
+            takes precedence over the previous, so even though the <code>!</code> (boolean negation) operator is a
+            logical operator, because it is an unary operator, no space should be inserted after it. Notably, the comma
+            operator (<code>,</code>) is treated as punctuation for the purposes of spacing rules.
+        </p>
+
+        <table>
+            Some common operators
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Family</td>
+                    <td>Symbol</td>
+                    <td>Spacing</td>
+                    <td>Example</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Plus</td>
+                    <td>Arithmetic</td>
+                    <td>+</td>
+                    <td>before & after</td>
+                    <td>2 + 4</td>
+                </tr>
+                <tr>
+                    <td>Minus</td>
+                    <td>Arithmetic</td>
+                    <td>-</td>
+                    <td>before & after</td>
+                    <td>4 - 1</td>
+                </tr>
+                <tr>
+                    <td>Multiply</td>
+                    <td>Arithmetic</td>
+                    <td>*</td>
+                    <td>before & after</td>
+                    <td>3 * 6</td>
+                </tr>
+                <tr>
+                    <td>Divide</td>
+                    <td>Arithmetic</td>
+                    <td>/</td>
+                    <td>before & after</td>
+                    <td>4 / 2</td>
+                </tr>
+                <tr>
+                    <td>Negation</td>
+                    <td>Arithmetic</td>
+                    <td>-</td>
+                    <td>before</td>
+                    <td>-3</td>
+                </tr>
+                <tr>
+                    <td>Incrementation (prefix)</td>
+                    <td>Arithmetic</td>
+                    <td>++</td>
+                    <td>before</td>
+                    <td>++x</td>
+                </tr>
+                <tr>
+                    <td>Incrementation (postfix)</td>
+                    <td>Arithmetic</td>
+                    <td>++</td>
+                    <td>after</td>
+                    <td>x++</td>
+                </tr>
+                <tr>
+                    <td>Assignment</td>
+                    <td>Assignment</td>
+                    <td>=</td>
+                    <td>before & after</td>
+                    <td>x = 2</td>
+                </tr>
+                <tr>
+                    <td>Equality</td>
+                    <td>Comparison</td>
+                    <td>==</td>
+                    <td>before & after</td>
+                    <td>z == 2</td>
+                </tr>
+                <tr>
+                    <td>Inequality</td>
+                    <td>Comparison</td>
+                    <td>!=</td>
+                    <td>before & after</td>
+                    <td>y != 3</td>
+                </tr>
+                <tr>
+                    <td>Less than</td>
+                    <td>Comparison</td>
+                    <td>&lt;</td>
+                    <td>before & after</td>
+                    <td>a &lt; 4</td>
+                </tr>
+                <tr>
+                    <td>Greater than</td>
+                    <td>Comparison</td>
+                    <td>&gt;</td>
+                    <td>before & after</td>
+                    <td>b &gt; 6</td>
+                </tr>
+                <tr>
+                    <td>Logical AND</td>
+                    <td>Logical</td>
+                    <td>&amp;&amp;</td>
+                    <td>before & after</td>
+                    <td>z &amp;&amp; w</td>
+                </tr>
+                <tr>
+                    <td>Logical OR</td>
+                    <td>Logical</td>
+                    <td>||</td>
+                    <td>before & after</td>
+                    <td>a || b</td>
+                </tr>
+                <tr>
+                    <td>Logical NOT</td>
+                    <td>Logical</td>
+                    <td>!</td>
+                    <td>before</td>
+                    <td>!c</td>
+                </tr>
+                <tr>
+                    <td>Instance of</td>
+                    <td>Relational</td>
+                    <td>instanceof</td>
+                    <td>before & after</td>
+                    <td>a instanceof String</td>
+                </tr>
+                <tr>
+                    <td>Bitwise AND</td>
+                    <td>Bitwise</td>
+                    <td>&amp;</td>
+                    <td>before & after</td>
+                    <td>3 &amp; 2</td>
+                </tr>
+                <tr>
+                    <td>Bitwise OR</td>
+                    <td>Bitwise</td>
+                    <td>|</td>
+                    <td>before & after</td>
+                    <td>5 | 3</td>
+                </tr>
+                <tr>
+                    <td>Property access</td>
+                    <td>Other</td>
+                    <td>.</td>
+                    <td>none</td>
+                    <td>object.property</td>
+                </tr>
+                <tr>
+                    <td>Indexing</td>
+                    <td>Other</td>
+                    <td>[]</td>
+                    <td>none</td>
+                    <td>array[2]</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            Note that depending on the language, a symbol can mean different things: Perl uses the dot
+            (<code>.</code>) as a string concatenation operator—because its role is more similar to addition than it is
+            to property access, it should follow the rules for the addition operator, namely, a space before and after.
+        </p>
+
+        <h3>Around punctuation, brackets and other symbols</h3>
+        <p>
+            Punctuation—such as commas (<code>,</code>), semicolons (<code>;</code>) and colons
+            (<code>:</code>)—generally take no space before them and a space after them, unless they are the last
+            character on their line, in which case they take no space.
+            <br>
+            It's worth noting that the colon is somewhat troublesome in that it sometimes takes no space before and
+            sometimes does. The user's common sense will take over, but some cases worth noting are as follows—the colon
+            should be surrounded by spaces when used in places similar to Java/C++'s 'for-each' loops
+            (<code>for (ele : array)</code>), and when used as the 'else' clause of a ternary operator. It should
+            inversely not be preceded by a space when used with a label or when used with a <code>switch</code>
+            statement's <code>case</code> expression.
+        </p>
+        <p>
+            Brackets fall into four types: parentheses (<code>()</code>), square brackets (<code>[]</code>), curly
+            braces (<code>{}</code>) and angle brackets (<code>&lt;&gt;</code>)—each have different uses and thus,
+            different rules.
+            <br>
+            <br>
+            Parentheses are used mostly for denoting order of operations, like in mathematics,
+            for performing function calls and declaring functions. In the first case, the parenthetical unit should be
+            surrounded by spaces, but the content of the parentheses should not be padded by spaces: write
+            <code>2 * (1 + x) + 3</code> and not <code>2 * ( 1 + x ) + 3</code> or <code>2 *(1+x)+ 3</code>. In the
+            other two cases, place no space before the parentheses, and do not pad its contents.
+            <br>
+            <br>
+            Square brackets are primarily used to index arrays, declare array types and create them. In all three cases,
+            no spaces should pad the brackets' internal content, and no space should surrounded the brackets—write
+            <code>int[] x = array[2];</code> and not <code>int [] x = array [ 2 ];</code>.
+            <br>
+            <br>
+            Curly braces are extremely important, because they section off parts of code—they're boundaries. A
+            defining trait of a C-style language is its use of curly braces for this role. Usually following a control
+            flow statement such as an <code>if</code>, <code>for</code> or <code>try</code>, they should have a space
+            before them and not a line break. As stated in the indentation section, the creation of a block for any
+            reason increases the
+            indentation level within that block by 1. If both curly braces are on the same line, however, there is
+            obviously no indentation within the block. In that case, the curly braces' contents should be padded by
+            spaces, unless there are no contents to be padded, in which case there should be no spaces between the curly
+            braces—write <code>{ something(); }</code> and <code>if (true) {}</code>, not <code>{something();}</code>
+            and <code>if (true) {  }</code>.
+            <br>
+            <br>
+            Angle brackets, when not used as comparison operators, are usually used in conjunction with <a
+                href="https://en.wikipedia.org/wiki/Generic_programming">generics</a>, either declaring them or
+            specifying them. In both cases, they take no spaces before, after nor inside.
+        </p>
+        <p>
+            When writing comments, put a space after the start of the comment (a double slash in C-style languages
+            <code>//</code>, sometimes a hashtag <code>#</code> in languages like Python) for legibility: do the same
+            regardless of the type of comment (line/block).
+        </p>
+
+        <h3>Synthesis:</h3>
+
+        <div class="code-block">
+            <label class="correct">Correct:</label>
+            <code>
+                <pre><span class="code-keyword">final</span> <span class="code-keyword">int</span> <span class="code-const">coolVariable</span> <span class="code-operator">=</span> <span class="code-number">1</span><span class="code-punctuation">,</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-const">someLongVariableName</span> <span class="code-operator">=</span> <span class="code-number">5</span><span class="code-punctuation">,</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-const">otherVariable</span> <span class="code-operator">=</span> <span class="code-number">2</span><span class="code-punctuation">;</span>
+<span class="code-comment">// Because of the somewhat long modifier, it's also acceptable
+// not to merge these declarations:</span>
+<span class="code-keyword">final</span> <span class="code-keyword">int</span> <span class="code-const">coolVariable</span> <span class="code-operator">=</span> <span class="code-number">1</span><span class="code-punctuation">;</span>
+<span class="code-keyword">final</span> <span class="code-keyword">int</span> <span class="code-const">someLongVariableName</span> = <span class="code-number">5</span><span class="code-punctuation">;</span>
+<span class="code-keyword">final</span> <span class="code-keyword">int</span> <span class="code-const">otherVariable</span> <span class="code-operator">=</span> <span class="code-number">2</span><span class="code-punctuation">;</span>
+
+<span class="code-ctrl-flow">if</span> <span class="code-punctuation">(</span><span class="code-const">coolVariable</span> <span class="code-operator">==</span> <span class="code-number">1</span><span class="code-punctuation">)</span> <span class="code-punctuation">{</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-ctrl-flow">for</span> <span class="code-punctuation">(</span><span class="code-keyword">int</span> <span class="code-variable">i</span> <span class="code-operator">=</span> <span class="code-number">0</span><span class="code-punctuation">;</span> <span class="code-variable">i</span> <span class="code-operator">&lt;</span> <span class="code-number">10</span><span class="code-punctuation">;</span> <span class="code-variable">i</span><span class="code-operator">++</span><span class="code-punctuation">)</span> <span class="code-punctuation">{</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-keyword">final</span> <span class="code-keyword">int</span> <span class="code-const">iSquared</span> <span class="code-operator">=</span> <span class="code-variable">i</span> <span class="code-operator">*</span> <span class="code-variable">i</span><span class="code-punctuation">;</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-ctrl-flow">if</span> <span class="code-punctuation">(</span><span class="code-const">iSquared</span> <span class="code-operator">&lt;=</span> <span class="code-number">50</span><span class="code-punctuation">)</span> <span class="code-punctuation">{</span> <span class="code-comment">/* do stuff */</span> <span class="code-punctuation">}</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-punctuation">}</span>
+<span class="code-punctuation">}</span>
+
+<span class="code-punctuation">{</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-keyword">final</span> <span class="code-keyword">double</span> <span class="code-const">pi</span> <span class="code-operator">=</span> <span class="code-number">3.14159265358979323846264338327950288</span><span class="code-punctuation">;</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-comment">// do stuff</span>
+<span class="code-punctuation">}</span>
+
+<span class="code-keyword">new</span> <span class="code-class">StringBuilder</span><span class="code-punctuation">()</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-operator">.</span><span class="code-method">append</span><span class="code-punctuation">(</span><span class="code-string">"I wanna know, "</span><span class="code-punctuation">)</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-operator">.</span><span class="code-method">append</span><span class="code-punctuation">(</span><span class="code-string">"have you ever seen the rain "</span><span class="code-punctuation">)</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-operator">.</span><span class="code-method">append</span><span class="code-punctuation">(</span><span class="code-string">"coming down on a sunny day?"</span><span class="code-punctuation">)</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-operator">.</span><span class="code-method">toString</span><span class="code-punctuation">(</span><span class="code-punctuation">)</span><span class="code-punctuation">;</span>
+
+<span class="code-keyword">class</span> <span class="code-class">Point</span> <span class="code-punctuation">{</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-keyword">public</span> <span class="code-keyword">double</span> <span class="code-attribute">x</span><span class="code-punctuation">;</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-keyword">public</span> <span class="code-keyword">double</span> <span class="code-attribute">y</span><span class="code-punctuation">;</span>
+
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-keyword">public</span> <span class="code-class">Point</span><span class="code-punctuation">(</span><span class="code-keyword">int</span> <span class="code-parameter">x</span><span class="code-punctuation">,</span> <span class="code-keyword">int</span> <span class="code-parameter">y</span><span class="code-punctuation">)</span> <span class="code-punctuation">{</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">x</span> <span class="code-punctuation">=</span> <span class="code-parameter">x</span><span class="code-punctuation">;</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">y</span> <span class="code-punctuation">=</span> <span class="code-parameter">y</span><span class="code-punctuation">;</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-punctuation">}</span>
+
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-decorator">@Override</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-keyword">public</span> <span class="code-keyword">boolean</span> <span class="code-method">equals</span><span class="code-punctuation">(</span><span class="code-class">Object</span> <span class="code-parameter">obj</span><span class="code-punctuation">)</span> <span class="code-punctuation">{</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-ctrl-flow">return</span> <span class="code-punctuation">(</span><span class="code-parameter">obj</span> <span class="code-punctuation">==</span> <span class="code-keyword">this</span><span class="code-punctuation">)</span> <span class="code-punctuation">||</span> <span class="code-punctuation">(</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-parameter">obj</span> <span class="code-punctuation">!=</span> <span class="code-keyword">null</span> <span class="code-punctuation">&&</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-parameter">obj</span> <span class="code-keyword">instanceof</span> <span class="code-keyword">final</span> <span class="code-class">Point</span> <span class="code-const">pt</span> <span class="code-punctuation">&&</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-const">pt</span><span class="code-operator">.</span><span class="code-parameter">x</span> <span class="code-punctuation">==</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-parameter">x</span> <span class="code-punctuation">&&</span> <span class="code-const">pt</span><span class="code-operator">.</span><span class="code-parameter">y</span> <span class="code-punctuation">==</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-parameter">y</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-punctuation">)</span><span class="code-punctuation">;</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-punctuation">}</span>
+<span class="code-punctuation">}
+
+<span class="code-comment">/*
+<span class="code-noisy-whitespace">•</span>* A function that adds two {<span class="code-doctag">@code</span> int}s together
+<span class="code-noisy-whitespace">•</span>* <span class="code-doctag">@param</span> <span class="code-variable">a</span> The first number to add
+<span class="code-noisy-whitespace">•</span>* <span class="code-doctag">@param</span> <span class="code-variable">b</span> The second number to add
+<span class="code-noisy-whitespace">•</span>* <span class="code-doctag">@returns</span> The sum of the two numbers
+<span class="code-noisy-whitespace">•</span>*/</span>
+<span class="code-keyword">public</span> <span class="code-keyword">static</span> <span class="code-keyword">int</span> <span class="code-method">add</span><span class="code-punctuation">(</span><span class="code-keyword">int</span> <span class="code-parameter">a</span><span class="code-punctuation">,</span> <span class="code-keyword">int</span> <span class="code-parameter">b</span><span class="code-punctuation">)</span> <span class="code-punctuation">{</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-ctrl-flow">return</span> <span class="code-parameter">a</span> <span class="code-operator">+</span> <span class="code-parameter">b</span><span class="code-punctuation">;</span>
+<span class="code-punctuation">}</span>
+
+<span class="code-comment">// Various bracket examples (in Typescript)</span>
+<span class="code-keyword">const</span> <span class="code-const">arrays</span><span class="code-punctuation">:</span> <span class="code-class">Array</span><span class="code-punctuation">&lt;</span><span class="code-class">Array</span><span class="code-punctuation">&lt;</span><span class="code-type">string</span><span class="code-punctuation">&gt;&gt;</span> <span class="code-operator">=</span> <span class="code-punctuation">[</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-punctuation">[</span><span class="code-string">"string1"</span><span class="code-punctuation">,</span> <span class="code-string">"string2"</span><span class="code-punctuation">],</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-punctuation">[</span><span class="code-string">"string3"</span><span class="code-punctuation">,</span> <span class="code-string">"string4"</span><span class="code-punctuation">]</span>
+<span class="code-punctuation">];</span>
+
+<span class="code-const">arrays</span><span class="operator">[</span><span class="code-number">0</span><span class="operator">][</span><span class="code-number">1</span><span class="operator">]</span><span class="code-operator">.</span><span class="code-method">chatAt</span><span class="code-punctuation">(</span><span class="code-number">6</span><span class="code-punctuation">);</span> <span class="code-comment">// == 2</span>
+
+<span class="code-comment">// Don't worry too much about the unfamiliar syntax, this is to demonstrate spacing rules</span>
+<span class="code-comment">// If you really want to know, this is an array of functions</span>
+<span class="code-keyword">const</span> <span class="code-const">functions</span> <span class="code-operator">=</span> <span class="code-punctuation">[</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-keyword">function</span><span class="code-punctuation">(</span><span class="code-parameter">a</span><span class="code-punctuation">:</span> <span class="code-type">number</span>, <span class="code-parameter">b</span><span class="code-punctuation">:</span> <span class="code-type">number</span><span class="code-punctuation">)</span> <span class="code-punctuation">{</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-ctrl-flow">return</span> <span class="code-parameter">a</span> <span class="code-operator">+</span> <span class="code-parameter">b</span><span class="code-punctuation">;</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-punctuation">},</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-keyword">function</span><span class="code-punctuation">(</span><span class="code-parameter">a</span><span class="code-punctuation">:</span> <span class="code-type">number</span>, <span class="code-parameter">b</span><span class="code-punctuation">:</span> <span class="code-type">number</span><span class="code-punctuation">)</span> <span class="code-punctuation">{</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-ctrl-flow">return</span> <span class="code-parameter">a</span> <span class="code-operator">-</span> <span class="code-parameter">b</span><span class="code-punctuation">;</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-punctuation">}</span>
+<span class="code-punctuation">];</span>
+
+<span class="code-comment">// Here, we fetch the first one at index 0 and call it immediately</span>
+<span class="code-const">functions</span><span class="operator">[</span><span class="code-number">0</span><span class="operator">]</span><span class="code-punctuation">(</span><span class="code-number">2</span><span class="code-punctuation">,</span> <span class="code-number">3</span><span class="code-punctuation">);</span> <span class="code-comment">// == 5</span>
+</pre>
+            </code>
+        </div>
+
+        <div class="code-block">
+            <label class="incorrect">Incorrect:</label>
+            <code>
+                <pre><span class="code-keyword">final</span> <span class="code-keyword">int</span> <span class="code-const">coolVariable</span> <span class="code-operator">=</span> <span class="code-number">1</span><span class="code-punctuation">,</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-const">someLongVariableName</span> <span class="code-operator">=</span> <span class="code-number">5</span><span class="code-punctuation">,</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-const">otherVariable</span> <span class="code-operator">=</span> <span class="code-number">2</span><span class="code-punctuation">;</span>
+<span class="code-comment">//Because of the somewhat long modifier, it's also acceptable
+//not to merge these declarations:</span>
+<span class="code-keyword">final</span> <span class="code-keyword">int</span> <span class="code-const">coolVariable</span> <span class="code-operator">=</span> <span class="code-number">1</span><span class="code-punctuation">;</span>
+<span class="code-keyword">final</span> <span class="code-keyword">int</span> <span class="code-const">someLongVariableName</span> = <span class="code-number">5</span><span class="code-punctuation">;</span>
+<span class="code-keyword">final</span> <span class="code-keyword">int</span> <span class="code-const">otherVariable</span> <span class="code-operator">=</span> <span class="code-number">2</span><span class="code-punctuation">;</span>
+
+<span class="code-ctrl-flow">if</span> <span class="code-punctuation">(</span><span class="code-const">coolVariable</span> <span class="code-operator">==</span> <span class="code-number">1</span><span class="code-punctuation">)</span> <span class="code-punctuation">{</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-ctrl-flow">for</span> <span class="code-punctuation">(</span><span class="code-keyword">int</span> <span class="code-variable">i</span> <span class="code-operator">=</span> <span class="code-number">0</span><span class="code-punctuation">;</span> <span class="code-variable">i</span> <span class="code-operator">&lt;</span> <span class="code-number">10</span><span class="code-punctuation">;</span> <span class="code-variable">i</span><span class="code-operator">++</span><span class="code-punctuation">)</span> <span class="code-punctuation">{</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-keyword">final</span> <span class="code-keyword">int</span> <span class="code-const">iSquared</span> <span class="code-operator">=</span> <span class="code-variable">i</span> <span class="code-operator">*</span> <span class="code-variable">i</span><span class="code-punctuation">;</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-ctrl-flow">if</span> <span class="code-punctuation">(</span><span class="code-const">iSquared</span> <span class="code-operator">&lt;=</span> <span class="code-number">50</span><span class="code-punctuation">)</span> <span class="code-punctuation">{</span><span class="code-comment">/*do stuff*/</span><span class="code-punctuation">}</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-punctuation">}</span>
+<span class="code-punctuation">}</span>
+
+<span class="code-keyword">new</span> <span class="code-class">StringBuilder</span><span class="code-punctuation">()</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-operator">.</span><span class="code-method">append</span><span class="code-punctuation">(</span><span class="code-string">"I wanna know, "</span><span class="code-punctuation">)</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-operator">.</span><span class="code-method">append</span><span class="code-punctuation">(</span><span class="code-string">"have you ever seen the rain "</span><span class="code-punctuation">)</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-operator">.</span><span class="code-method">append</span><span class="code-punctuation">(</span><span class="code-string">"coming down on a sunny day?"</span><span class="code-punctuation">)</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-operator">.</span><span class="code-method">toString</span><span class="code-punctuation">(</span><span class="code-punctuation">)</span><span class="code-punctuation">;</span>
+
+<span class="code-keyword">class</span> <span class="code-class">Point</span> <span class="code-punctuation">{</span>
+<span class="code-keyword">public</span> <span class="code-keyword">double</span> <span class="code-attribute">x</span><span class="code-punctuation">;</span>
+<span class="code-keyword">public</span> <span class="code-keyword">double</span> <span class="code-attribute">y</span><span class="code-punctuation">;</span>
+
+<span class="code-keyword">public</span> <span class="code-class">Point</span><span class="code-punctuation">(</span><span class="code-keyword">int</span> <span class="code-parameter">x</span><span class="code-punctuation">,</span> <span class="code-keyword">int</span> <span class="code-parameter">y</span><span class="code-punctuation">)</span> <span class="code-punctuation">{</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">x</span> <span class="code-punctuation">=</span> <span class="code-parameter">x</span><span class="code-punctuation">;</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">y</span> <span class="code-punctuation">=</span> <span class="code-parameter">y</span><span class="code-punctuation">;</span>
+<span class="code-punctuation">}</span>
+
+<span class="code-decorator">@Override</span>
+<span class="code-keyword">public</span> <span class="code-keyword">boolean</span> <span class="code-method">equals</span><span class="code-punctuation">(</span><span class="code-class">Object</span> <span class="code-parameter">obj</span><span class="code-punctuation">)</span> <span class="code-punctuation">{</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-ctrl-flow">return</span> <span class="code-punctuation">(</span><span class="code-parameter">obj</span> <span class="code-punctuation">==</span> <span class="code-keyword">this</span><span class="code-punctuation">)</span> <span class="code-punctuation">||</span> <span class="code-punctuation">(</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-parameter">obj</span> <span class="code-punctuation">!=</span> <span class="code-keyword">null</span> <span class="code-punctuation">&&</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-parameter">obj</span> <span class="code-keyword">instanceof</span> <span class="code-keyword">final</span> <span class="code-class">Point</span> <span class="code-const">pt</span> <span class="code-punctuation">&&</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-const">pt</span><span class="code-operator">.</span><span class="code-parameter">x</span> <span class="code-punctuation">==</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-parameter">x</span> <span class="code-punctuation">&&</span> <span class="code-const">pt</span><span class="code-operator">.</span><span class="code-parameter">y</span> <span class="code-punctuation">==</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-parameter">y</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-punctuation">)</span><span class="code-punctuation">;</span>
+<span class="code-punctuation">}</span>
+<span class="code-punctuation">}</span>
+
+<span class="code-comment">/*
+* A function that adds two {<span class="code-doctag">@code</span> int}s together
+* <span class="code-doctag">@param</span> <span class="code-variable">a</span> The first number to add
+* <span class="code-doctag">@param</span> <span class="code-variable">b</span> The second number to add
+* <span class="code-doctag">@returns</span> The sum of the two numbers
+*/</span>
+<span class="code-keyword">public</span> <span class="code-keyword">static</span> <span class="code-keyword">int</span> <span class="code-method">add</span><span class="code-punctuation">(</span><span class="code-keyword">int</span> <span class="code-parameter">a</span><span class="code-punctuation">,</span> <span class="code-keyword">int</span> <span class="code-parameter">b</span><span class="code-punctuation">)</span> <span class="code-punctuation">{</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-ctrl-flow">return</span> <span class="code-parameter">a</span> <span class="code-operator">+</span> <span class="code-parameter">b</span><span class="code-punctuation">;</span>
+<span class="code-punctuation">}</span>
+
+<span class="code-comment">//Various bracket examples (in Typescript)</span>
+<span class="code-keyword">const</span> <span class="code-const">arrays</span><span class="code-punctuation">:</span> <span class="code-class">Array</span><span class="code-punctuation">&lt;</span> <span class="code-class">Array</span><span class="code-punctuation">&lt;</span> <span class="code-type">string</span><span class="code-punctuation"> &gt; &gt;</span> <span class="code-operator">=</span> <span class="code-punctuation">[</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-punctuation">[</span> <span class="code-string">"string1"</span><span class="code-punctuation">,</span> <span class="code-string">"string2"</span> <span class="code-punctuation">],</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-punctuation">[</span> <span class="code-string">"string3"</span><span class="code-punctuation">,</span> <span class="code-string">"string4"</span> <span class="code-punctuation">]</span>
+<span class="code-punctuation">];</span>
+
+<span class="code-const">arrays</span><span class="operator">[</span> <span class="code-number">0</span> <span class="operator">][</span> <span class="code-number">1</span> <span class="operator">]</span><span class="code-operator">.</span><span class="code-method">chatAt</span><span class="code-punctuation">(</span> <span class="code-number">6</span> <span class="code-punctuation">);</span> <span class="code-comment">//== 2</span>
+
+<span class="code-comment">//Don't worry too much about the unfamiliar syntax, this is to demonstrate spacing rules</span>
+<span class="code-comment">//If you really want to know, this is an array of functions</span>
+<span class="code-keyword">const</span> <span class="code-const">functions</span> <span class="code-operator">=</span> <span class="code-punctuation">[</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-keyword">function</span> <span class="code-punctuation">(</span><span class="code-parameter">a</span><span class="code-punctuation">:</span> <span class="code-type">number</span>, <span class="code-parameter">b</span><span class="code-punctuation">:</span> <span class="code-type">number</span>)
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-punctuation">{</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-ctrl-flow">return</span> <span class="code-parameter">a</span> <span class="code-operator">+</span> <span class="code-parameter">b</span><span class="code-punctuation">;</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-punctuation">},</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-keyword">function</span> <span class="code-punctuation">(</span><span class="code-parameter">a</span><span class="code-punctuation">:</span> <span class="code-type">number</span>, <span class="code-parameter">b</span><span class="code-punctuation">:</span> <span class="code-type">number</span>)
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-punctuation">{</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-ctrl-flow">return</span> <span class="code-parameter">a</span> <span class="code-operator">-</span> <span class="code-parameter">b</span><span class="code-punctuation">;</span>
+<span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-noisy-whitespace">•</span><span class="code-punctuation">}</span>
+<span class="code-punctuation">];</span>
+
+<span class="code-comment">//Here, we fetch the first one at index 0 and call it immediately</span>
+<span class="code-const">functions</span><span class="operator">[</span><span class="code-number">0</span><span class="operator">]</span> <span class="code-punctuation">(</span><span class="code-number">2</span><span class="code-punctuation">,</span> <span class="code-number">3</span><span class="code-punctuation">);</span> <span class="code-comment">//== 5</span>
+</pre>
+            </code>
+        </div>
+    </main>
+</body>
+
+</html>
