@@ -283,7 +283,7 @@
         <h2>Blank lines</h2>
         <p>
             Blank lines should be used to break up large segments of code, or just generally to break up pieces of code
-            that isn't related to each other. For example, it's common to declare a host of variables at the top of a
+            that aren't related to each other. For example, it's common to declare a host of variables at the top of a
             function, and then perform operations on those and according to those variables. Since these are two
             different sections of the functions, a blank line between them can help the reader to parse each section.
             Never use more than one blank line at a time. Here are some common places where blank lines are used to
@@ -293,8 +293,10 @@
         <ul>
             <li>
                 Before and after anything that creates a block (<code>if</code> statement; <code>for</code> loop;
-                function,
-                class, enum, interface or other similar declaration, user-defined blocks)
+                function, class, enum, interface or other similar declaration, user-defined blocks), unless it is
+                preceded by another such "block creation" construct—for example, an <code>if</code> statement
+                at the very start of a <code>for</code> loop or at the very start of a method wouldn't need to
+                have a blank line before it (however, it's recommended to put one after it).
             </li>
             <li>Between a class' attributes and its constructor(s)</li>
             <li>Between a class' methods</li>
@@ -306,7 +308,19 @@
             <li>
                 After a group of variable declarations, unless a return immediately follows and the function ends there.
             </li>
+            <li>
+                Before a <code>return</code> statement, unless the statement is isolated enough.
+            </li>
+            <li>
+                Before a documentation comment (but never after it).
+            </li>
         </ul>
+        <p>
+            All of these blank line rules are more guidelines than concrete rules: the purpose of a blank line is the
+            same as the purpose of a paragraph—which is to break up large amounts of content into more manageable
+            chunks. Proper judgement should suffice for determining where a blank line can improve comprehension and
+            readability.
+        </p>
 
         <h2 id="spacing-synthesis">Synthesis:</h2>
 
@@ -325,6 +339,7 @@
 <span class="code-control-flow">if</span> <span class="code-punctuation">(</span><span class="code-const">coolVariable</span> <span class="code-operator">==</span> <span class="code-number">1</span><span class="code-punctuation">) {</span>
 <span class="code-noisy-whitespace">••••</span><span class="code-control-flow">for</span> <span class="code-punctuation">(</span><span class="code-keyword">int</span> <span class="code-variable">i</span> <span class="code-operator">=</span> <span class="code-number">0</span><span class="code-punctuation">;</span> <span class="code-variable">i</span> <span class="code-operator">&lt;</span> <span class="code-number">10</span><span class="code-punctuation">;</span> <span class="code-variable">i</span><span class="code-operator">++) {</span>
 <span class="code-noisy-whitespace">••••••••</span><span class="code-keyword">final</span> <span class="code-keyword">int</span> <span class="code-const">iSquared</span> <span class="code-operator">=</span> <span class="code-variable">i</span> <span class="code-operator">*</span> <span class="code-variable">i</span><span class="code-punctuation">;</span>
+
 <span class="code-noisy-whitespace">••••••••</span><span class="code-control-flow">if</span> <span class="code-punctuation">(</span><span class="code-const">iSquared</span> <span class="code-operator">&lt;=</span> <span class="code-number">50</span><span class="code-punctuation">) {</span> <span class="code-comment">/* do stuff */</span> <span class="code-punctuation">}</span>
 <span class="code-noisy-whitespace">••••</span><span class="code-punctuation">}</span>
 <span class="code-punctuation">}</span>
@@ -358,7 +373,7 @@
 <span class="code-noisy-whitespace">••••</span><span class="code-punctuation">}</span>
 <span class="code-punctuation">}</span>
 
-<span class="code-comment">/*
+<span class="code-comment">/**
 <span class="code-noisy-whitespace">•</span>* A function that adds two {<span class="code-doctag">@code</span> int}s together
 <span class="code-noisy-whitespace">•</span>* <span class="code-doctag">@param</span> <span class="code-variable">a</span> The first number to add
 <span class="code-noisy-whitespace">•</span>* <span class="code-doctag">@param</span> <span class="code-variable">b</span> The second number to add
@@ -430,7 +445,7 @@
 <span class="code-noisy-whitespace">••••</span><span class="code-punctuation">)</span><span class="code-punctuation">;</span>
 <span class="code-punctuation">}</span>
 <span class="code-punctuation">}</span>
-<span class="code-comment">/*
+<span class="code-comment">/**
 * A function that adds two {<span class="code-doctag">@code</span> int}s together
 * <span class="code-doctag">@param</span> <span class="code-variable">a</span> The first number to add
 * <span class="code-doctag">@param</span> <span class="code-variable">b</span> The second number to add
@@ -522,6 +537,9 @@
                     <li>Notably, local variables and instance attributes never use <code>SCREAMING_SNAKE_CASE</code>,
                         even if marked as readonly.</li>
                 </ul>
+            </li>
+            <li>
+                Enum members use <code>UpperCamelCase</code>
             </li>
             <li>
                 In the presence of acronyms, capitalize the acronym's first letter if it is not the first word in a
@@ -639,6 +657,33 @@
         <code>willRead</code>—although this is rare. Boolean attributes, being more or less like no-parameter
         predicates, should follow the rules governing them.
         </p>
+        <p>
+            Other functions return the value of a <code>private</code> attribute, allow one to set the value of a
+            <code>private</code> attribute, or allow one to check if a given value is valid for a given attribute. Such
+            methods are respectfully called "getters", "setters" and "validators". Each has a fairly simple naming rule:
+        <ul>
+            <li>
+                Getters: Always start with the word "get", followed by the name of the attribute the getter is
+                returning. In some cases, getters calculate values and return them, rather than returning the value of
+                an attribute: these could be considered "computed attributes", in that they only way to access them is
+                to calculate them, rather than accessing them in a variable.
+                <br>
+                This guide discourages naming computed attributes with the word "get"—since the method is no longer
+                really a getter—and instead suggests using the word "compute", or "calculate", to more accurately
+                describe what the method is doing.
+            </li>
+            <li>
+                Setters: Always start with the word "set", followed by the name of the attribute the setter is
+                modifying. While rarer, it's also possible for setters not to be directly linked to an attribute,
+                instead modifying multiple. In this case, their name should not begin with "set", as they are not really
+                setters.
+            </li>
+            <li>
+                Validators: Being predicates, they should follow the same rules as them. The guide suggests starting all
+                validators with "isValid", followed by the attribute being validated.
+            </li>
+        </ul>
+        </p>
 
         <h2 id="naming-synthesis">Synthesis:</h2>
 
@@ -658,9 +703,9 @@
 <span class="code-keyword">record</span> <span class="code-record">Pair</span><span class="code-punctuation">&lt;</span><span class="code-generic">T</span><span class="code-punctuation">&gt;</span><span class="code-punctuation">(</span><span class="code-generic">T</span> <span class="code-const">left</span><span class="code-punctuation">,</span> <span class="code-generic">T</span> <span class="code-const">right</span><span class="code-punctuation">) {}</span>
 
 <span class="code-keyword">enum</span> <span class="code-enum">SomeEnum</span> <span class="code-keyword">implements</span> <span class="code-interface">SomeInterface</span> <span class="code-punctuation">{</span>
-    <span class="code-enum-member">constant1</span><span class="code-punctuation">,</span>
-    <span class="code-enum-member">constant2</span><span class="code-punctuation">,</span>
-    <span class="code-enum-member">constant3</span><span class="code-punctuation">;</span>
+    <span class="code-enum-member">Constant1</span><span class="code-punctuation">,</span>
+    <span class="code-enum-member">Constant2</span><span class="code-punctuation">,</span>
+    <span class="code-enum-member">Constant3</span><span class="code-punctuation">;</span>
 
     <span class="code-decorator">@Override</span>
     <span class="code-keyword">public</span> <span class="code-keyword">int</span> <span class="code-method">interfaceMethod</span><span class="code-punctuation">() {</span>
@@ -725,6 +770,490 @@
 
     <span class="code-keyword">public</span> <span class="code-class">Some_Class</span><span class="code-punctuation">(</span><span class="code-record">pair</span><span class="code-punctuation">&lt;</span><span class="code-class">Integer</span><span class="code-punctuation">&gt;</span> <span class="code-parameter">pair</span><span class="code-punctuation">) {</span>
         <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">myPair</span> <span class="code-operator">=</span> <span class="code-parameter">pair</span><span class="code-punctuation">;</span>
+    <span class="code-punctuation">}</span>
+<span class="code-punctuation">}</span>
+</pre>
+            </code>
+        </div>
+        <h1>General miscellaneous stuff</h1>
+        <p>
+            The main things style guides disagree on are generally spaces vs tabs, spaces per indent level, case and
+            variable naming. With all of those things covered, it's time to look at more minor but nonetheless
+            noteworthy aspects of what could be considered one's "programming style".
+        </p>
+        <h2>The usage of constants</h2>
+        <p>
+            Constants are variables whose values do not and cannot change once declared. Marking a variable as constant
+            prevents one from changing its reference (what the variable points to), but if the variable points to an
+            object, modifying that object is allowed. (Note: in the case of languages allowing variables to hold
+            pointers, additional rules apply as to whether or not one may modify the value pointed to by the pointer).
+            <br>
+            With this definition in mind, it's recommended to mark all variables as constant, changing them
+            to be mutable if needed. The justification for this comes from the <em>principle of least privilege</em>,
+            which, although describing the privilege with which executables on a user's computer operate, can be
+            generalized to this case. In this case, the privilege translates to saying: if a variable doesn't need to be
+            modified, then make it constant so that it can't be modified. Not only does this prevent accidental
+            assignments to variables which weren't meant to be modified, it communicates that intent much better and
+            forcefully. (Bonus: the shade of blue used for constants in VSCode is nicer.)
+        </p>
+        <h2>Breaking onto multiple lines</h2>
+        <p>
+            Similar to the rationale behind including blank lines to break up large pieces of code and to generally
+            improve readability, it's common to break long lines of code onto multiple, smaller lines that are easier to
+            digest. A common example of this would be splitting a compound variable declaration onto multiple lines,
+            giving each declaration its own line, but it can also be done in other places, such as:
+        </p>
+        <ul>
+            <li>Long function parameter lists</li>
+            <li>Long <code>for</code> loop control statements</li>
+            <li>Method chaining</li>
+            <li>Ternary operator</li>
+            <li>Long expressions</li>
+            <li>Enum constants</li>
+        </ul>
+        <h2>(OOP) Field and method organization</h2>
+        <p>
+            In a given class, while methods, attributes and constructors can technically go wherever one wants them to,
+            precisely because of that, some organization needs to be set in place in order to ease navigation.
+        </p>
+        <p>
+            Attributes are divided according to visibility—static modifiers always go above instance ones, and the order
+            is then <code>public</code>, <code>protected</code> and <code>private</code>. If the language offers other
+            access modifiers, it's up to the programmer to decide where in the hierarchy they fit. Readonly attributes
+            precede mutable ones. Other modifiers—such as <code>abstract</code>, or Java's <code>transient</code> and
+            <code>volatile</code>—which don't affect accessibility have no influence, however, it's preferable to
+            nevertheless group multiple attributes all using the same modifier.
+        </p>
+        <p>
+            Constructors go after, and if there are multiple, they should by ordered from least parameters to most
+            parameters.
+        </p>
+        <p>
+            Methods follow the same rules as attributes, but notably, getters/setters/validators should be placed next
+            to the attribute they affect. This is because these methods, generally being a single line, don't contribute
+            much complexity to the class, and for the sake of quickly knowing which attribute has a getter or setter,
+            it's recommended to place the after the attribute they concern, with blank lines neither between themselves
+            and the attribute nor amongst themselves.
+            <br>
+            However, if a method is a getter or setter that does some sort of calculation, or is generally not a proxy
+            for a private attribute, then it should not be placed with the attributes (especially if there is no
+            corresponding attribute: this can happen if the getter performs a calculation on one or more attributes,
+            rather than returning the value of a property—it's technically not really a "getter", but since such methods
+            usually follow the same naming convention as getters, it's worth pointing out the difference.)
+            <br>
+            Methods that are related in function should be grouped together, and the <code>abstract</code> modifier
+            shouldn't affect ordering.
+        </p>
+        <p>
+            Internal classes, enums, interfaces or other similar constructs go at the very top of the class if they are
+            static (with classes coming before enums which come before interfaces) and at the very bottom if they belong
+            to instances (with the same ordering).
+        </p>
+        <p>
+            Somewhat related, enum fields should be alphabetically organized, unless there is some other, more logical
+            organizational scheme.
+        </p>
+        <h2>(OOP) Relaxations on encapsulation</h2>
+        <p>
+            "Encapsulation", in the context of object-oriented programming, refers to the idea of hiding data from
+            external use, only allowing said external users to access it through specific channels the developer
+            creates—these channels being getters and setters. The justification is the principle of least privilege,
+            wherein something that doesn't need to be modified should be dressed up in a way that prevents it from being
+            modified at all. An example of this is marking variables as constant, something this guide has already
+            encouraged, and the usage of getters/setters further illustrates this pattern. However, writing get/set
+            pairs can get very boring, and it adds weight to a codebase. Most of the time, getters are so simple that
+            they can be condensed onto one line: this guide recommends doing it to decrease on the space these quite
+            honestly uninteresting methods take up.
+        </p>
+        <p>
+            While it could be argued self-evident, because of how much clutter a get/set pair generates, it's advised to
+            try and find a way to minimize their use. For example, if an attribute is marked as readonly, and is
+            assigned in the constructor, does it really need to be private? After all, if the developer then writes a
+            getter for that value, they could just as easily mark the attribute as public and readonly.
+            <br>
+            Similarly, if a private attribute has a getter which just returns that attribute (as is usually the case)
+            and a setter that blindly updates the attribute (less common but possible), then the get/set pair is a
+            totally unnecessary proxy, and the attribute can be marked as public.
+        </p>
+        <h2>Guard clauses</h2>
+        <p>
+            A <em><a href="https://en.wikipedia.org/wiki/Guard_(computer_science)">guard</a></em> or as they'll be
+            referred to here, <em>guard clause</em>, is a condition that is considered prerequisite, or necessary, in
+            order for a piece of code to function or for it to be logical. They are usually very short, and concise,
+            easy-to-check, intuitively obvious things. For example, if one was tasked with comparing if two arrays had
+            the same contents, their first step would be to check if their lengths are the same—this is easy to check,
+            and if not true, not only can we immediately conclude that the arrays aren't equal. Any code written after
+            this would probably be illogical for two arrays of different lengths, and so the guard clause
+            <em>guards</em> this code from a case which it cannot handle.
+        </p>
+        <p>
+            Another benefit to using them is avoiding the so-called <a
+                href="https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)">"pyramid of doom"</a>, wherein
+            multiple levels of indentation result from repeated <code>if</code> statements or otherwise sloppy
+            management. Pyramids of doom are arguably worth their own section, but one way to help mitigate them is with
+            guard clauses.
+        </p>
+        <h2>Inlining and extracting</h2>
+        <p>
+            Sometimes, expressions will be repeated multiple times: in this case, they should be extracted out to
+            variables to increase clarity, reduce clutter and improve performance.
+        </p>
+        <p>
+            Inversely, if a variable is only used once, it becomes pointless and should be inlined.
+        </p>
+        <h2>Documentation</h2>
+        <p>
+            Writing documentation comments should be standard practice, as it helps clearly identify what a piece of
+            software is doing, both for the writer and their teammates: if the writer struggles to self-document a
+            certain function, then perhaps the function's structure needs to be adjusted. For this reason, all classes,
+            enums, interfaces, records and global symbols should be annotated with descriptive documentation. Class
+            attributes/methods, enum members and interface members should also be annotated. When annotating functions
+            be sure to annotate all aspects of it, such as parameters (<code>@param</code>), return value
+            (<code>@return</code>) and possibly thrown values (<code>@throws</code>).
+        </p>
+        <p>
+            For structures such as enumerations and records, documentation of their members may be omitted if there is
+            absolutely no ambiguity as to what the member means. For example, it's superfluous to document the colors of
+            a <code>Colors</code> enum, or the types of cards of a <code>CardTypes</code> enum. The enum itself should
+            still be documented, however.
+        </p>
+
+        <h2 id="naming-synthesis">Synthesis:</h2>
+
+        <div class="code-block">
+            <label class="correct">Correct:</label>
+            <code>
+                <pre>
+<span class="code-comment">/**
+ * A class representing a car of some sort
+ */</span>
+<span class="code-keyword">class</span> <span class="code-class">Car</span> <span class="code-punctuation">{</span>
+    <span class="code-comment">/**
+     * A class used to build a car
+     */</span>
+    <span class="code-keyword">public</span> <span class="code-keyword">static</span> <span class="code-keyword">class</span> <span class="code-class">CarBuilder</span> <span class="code-punctuation">{</span>
+        <span class="code-comment">/**
+         * The type of engine this car will use
+         */</span>
+        <span class="code-keyword">private</span> <span class="code-enum">EngineType</span> <span class="code-attribute">engine</span><span class="code-punctuation">;</span>
+        <span class="code-comment">/**
+         * Sets the type of engine this car will use
+         * <span class="code-doctag">@param</span> <span class="code-parameter">engine</span> The engine type to use. Cannot be {<span class="code-doctag">@code</span> null}
+         * <span class="code-doctag">@returns</span> This builder object to allow method chaining
+         * <span class="code-doctag">@throws</span> <span class="code-class">IllegalArgumentException</span> If {<span class="code-doctag">@code</span> engine} is {<span class="code-doctag">@code</span> null}
+         */</span>
+        <span class="code-keyword">public</span> <span class="code-class">CarBuilder</span> <span class="code-method">setEngine</span><span class="code-punctuation">(</span><span class="code-enum">EngineType</span> <span class="code-parameter">engine</span><span class="code-punctuation">)</span> <span class="code-keyword">throws</span> <span class="code-class">IllegalArgumentException</span> <span class="code-punctuation">{</span>
+            <span class="code-control-flow">if</span> <span class="code-punctuation">(</span><span class="code-parameter">engine</span> <span class="code-operator">==</span> <span class="code-literal">null</span><span class="code-punctuation">)</span>
+                <span class="code-control-flow">throw</span> <span class="code-keyword">new</span> <span class="code-class">IllegalArgumentException</span><span class="code-punctuation">(</span><span class="code-string">"'engine' cannot be null"</span><span class="code-punctuation">);</span>
+
+            <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">engine</span> <span class="code-operator">=</span> <span class="code-parameter">engine</span><span class="code-punctuation">;</span>
+            <span class="code-control-flow">return</span> <span class="code-keyword">this</span><span class="code-punctuation">;</span>
+        <span class="code-punctuation">}</span>
+
+        <span class="code-comment">/**
+         * The type of tires this car will use
+         */</span>
+        <span class="code-keyword">private</span> <span class="code-enum">TireType</span> <span class="code-attribute">tire</span><span class="code-punctuation">;</span>
+        <span class="code-comment">/**
+         * Sets the type of tire this car will use
+         * <span class="code-doctag">@param</span> <span class="code-parameter">tire</span> The tire type to use. Cannot be {<span class="code-doctag">@code</span> null}
+         * <span class="code-doctag">@returns</span> This builder object to allow method chaining
+         * <span class="code-doctag">@throws</span> <span class="code-class">IllegalArgumentException</span> If {<span class="code-doctag">@code</span> tire} is {<span class="code-doctag">@code</span> null}
+         */</span>
+        <span class="code-keyword">public</span> <span class="code-class">CarBuilder</span> <span class="code-method">setTire</span><span class="code-punctuation">(</span><span class="code-enum">TireType</span> <span class="code-parameter">tire</span><span class="code-punctuation">)</span> <span class="code-keyword">throws</span> <span class="code-class">IllegalArgumentException</span> <span class="code-punctuation">{</span>
+            <span class="code-control-flow">if</span> <span class="code-punctuation">(</span><span class="code-parameter">tire</span> <span class="code-operator">==</span> <span class="code-literal">null</span><span class="code-punctuation">)</span>
+                <span class="code-control-flow">throw</span> <span class="code-keyword">new</span> <span class="code-class">IllegalArgumentException</span><span class="code-punctuation">(</span><span class="code-string">"'tire' cannot be null"</span><span class="code-punctuation">);</span>
+
+            <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">tire</span> <span class="code-operator">=</span> <span class="code-parameter">tire</span><span class="code-punctuation">;</span>
+            <span class="code-control-flow">return</span> <span class="code-keyword">this</span><span class="code-punctuation">;</span>
+        <span class="code-punctuation">}</span>
+
+        <span class="code-comment">/**
+         * The maximum amount of fuel, in liters, this car can hold
+         */</span>
+        <span class="code-keyword">private</span> <span class="code-enum">Integer</span> <span class="code-attribute">maxFuel</span><span class="code-punctuation">;</span>
+        <span class="code-comment">/**
+         * Sets the maximum fuel capacity of this vehicle
+         * <span class="code-doctag">@param</span> <span class="code-parameter">maxFuel</span> The fuel capacity in liters. Cannot be negative.
+         * <span class="code-doctag">@returns</span> This builder object to allow method chaining
+         */</span>
+        <span class="code-keyword">public</span> <span class="code-class">CarBuilder</span> <span class="code-method">setMaxFuel</span><span class="code-punctuation">(</span><span class="code-keyword">int</span> <span class="code-parameter">maxFuel</span><span class="code-punctuation">) {</span>
+            <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">maxFuel</span> <span class="code-operator">=</span> <span class="code-parameter">maxFuel</span><span class="code-punctuation">;</span>
+            <span class="code-control-flow">return</span> <span class="code-keyword">this</span><span class="code-punctuation">;</span>
+        <span class="code-punctuation">}</span>
+
+        <span class="code-comment">/**
+         * The color this car will be
+         */</span>
+        <span class="code-keyword">private</span> <span class="code-enum">Colors</span> <span class="code-attribute">color</span> <span class="code-operator">=</span> <span class="code-const">DEFAULT_COLOR</span><span class="code-punctuation">;</span>
+        <span class="code-comment">/**
+         * Sets the color this car will use
+         * <span class="code-doctag">@param</span> <span class="code-parameter">color</span> The color to use. Cannot be {<span class="code-doctag">@code</span> null}
+         * <span class="code-doctag">@returns</span> This builder object to allow method chaining
+         * <span class="code-doctag">@throws</span> <span class="code-class">IllegalArgumentException</span> If {<span class="code-doctag">@code</span> color} is {<span class="code-doctag">@code</span> null}
+         */</span>
+        <span class="code-keyword">public</span> <span class="code-class">CarBuilder</span> <span class="code-method">setColor</span><span class="code-punctuation">(</span><span class="code-enum">Colors</span> <span class="code-parameter">color</span><span class="code-punctuation">)</span> <span class="code-keyword">throws</span> <span class="code-class">IllegalArgumentException</span> <span class="code-punctuation">{</span>
+            <span class="code-control-flow">if</span> <span class="code-punctuation">(</span><span class="code-parameter">color</span> <span class="code-operator">==</span> <span class="code-literal">null</span><span class="code-punctuation">)</span>
+                <span class="code-control-flow">throw</span> <span class="code-keyword">new</span> <span class="code-class">IllegalArgumentException</span><span class="code-punctuation">(</span><span class="code-string">"'color' cannot be null"</span><span class="code-punctuation">);</span>
+
+            <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">color</span> <span class="code-operator">=</span> <span class="code-parameter">color</span><span class="code-punctuation">;</span>
+            <span class="code-control-flow">return</span> <span class="code-keyword">this</span><span class="code-punctuation">;</span>
+        <span class="code-punctuation">}</span>
+
+        <span class="code-comment">/**
+         * Whether this builder is in a valid state
+         *
+         * The builder is considered in a valid state if an engine, tire and maximum fuel capacity have been defined
+         */</span>
+        <span class="code-keyword">public</span> <span class="code-keyword">boolean</span> <span class="code-method">isInValidState</span><span class="code-punctuation">() {</span>
+            <span class="code-control-flow">return</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">engine</span> <span class="code-operator">!=</span> <span class="code-literal">null</span>
+                <span class="code-operator">&&</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">tire</span> <span class="code-operator">!=</span> <span class="code-literal">null</span>
+                <span class="code-operator">&&</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">maxFuel</span> <span class="code-operator">!=</span> <span class="code-literal">null</span><span class="code-punctuation">;</span>
+        <span class="code-punctuation">}</span>
+
+        <span class="code-comment">/**
+         * Constructs a new {<span class="code-doctag">@code</span> Car} from this builder if it is in a valid state.
+         * This method can be called as many times as is desired.
+         * <span class="code-doctag">@returns</span> A new {<span class="code-doctag">@code</span> Car} object based on this builder
+         * <span class="code-doctag">@throws</span> <span class="code-class">IllegalStateException</span> If this builder is currently in an invalid state.
+         See {<span class="code-doctag">@link</span> <span class="code-class">CarBuilder</span>#<span class="code-method">isInValidState</span><span class="code-punctuation">()</span>} for more details on what is considered "valid" state
+         */</span>
+        <span class="code-keyword">public</span> <span class="code-class">Car</span> <span class="code-method">construct</span><span class="code-punctuation">()</span> <span class="code-keyword">throws</span> <span class="code-class">IllegalStateException</span> <span class="code-punctuation">{</span>
+            <span class="code-control-flow">if</span> <span class="code-punctuation">(</span><span class="code-operator">!</span><span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-method">isInValidState</span><span class="code-punctuation">())</span>
+                <span class="code-control-flow">throw</span> <span class="code-keyword">new</span> <span class="code-class">IllegalStateException</span><span class="code-punctuation">(</span><span class="code-string">"Builder is in invalid state"</span><span class="code-punctuation">);</span>
+
+            <span class="code-control-flow">return</span> <span class="code-keyword">new</span> <span class="code-class">Car</span><span class="code-punctuation">(</span><span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">engine</span><span class="code-punctuation">,</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">tire</span><span class="code-punctuation">,</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">color</span><span class="code-punctuation">,</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">maxFuel</span><span class="code-punctuation">);</span>
+        <span class="code-punctuation">}</span>
+    <span class="code-punctuation">}</span>
+
+    <span class="code-comment">/**
+     * The types of engine a car can use
+     */</span>
+    <span class="code-keyword">public</span> <span class="code-keyword">static</span> <span class="code-keyword">enum</span> <span class="code-enum">EngineType</span> <span class="code-punctuation">{</span>
+        <span class="code-enum-member">Diesel</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">EC</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Flat</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Inline</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Rotary</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">V</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">W</span>
+    <span class="code-punctuation">}</span>
+
+    <span class="code-comment">/**
+     * The types of tires a car can be fitted with
+     */</span>
+    <span class="code-keyword">public</span> <span class="code-keyword">static</span> <span class="code-keyword">enum</span> <span class="code-enum">TireType</span> <span class="code-punctuation">{</span>
+        <span class="code-enum-member">AllSeason</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Touring</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Summer</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Performance</span>
+    <span class="code-punctuation">}</span>
+
+    <span class="code-comment">/**
+     * The colors a car can come in
+     */</span>
+    <span class="code-keyword">public</span> <span class="code-keyword">static</span> <span class="code-keyword">enum</span> <span class="code-enum">Colors</span> <span class="code-punctuation">{</span>
+        <span class="code-enum-member">Black</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Blue</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Cyan</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Green</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Gray</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Magenta</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Red</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">White</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Yellow</span>
+    <span class="code-punctuation">}</span>
+
+    <span class="code-comment">/**
+     * The color a car will use by default if none is specified
+     */</span>
+    <span class="code-keyword">public</span> <span class="code-keyword">static</span> <span class="code-keyword">final</span> <span class="code-enum">Colors</span> <span class="code-const">DEFAULT_COLOR</span> <span class="code-operator">=</span> <span class="code-enum">Colors</span><span class="code-operator">.</span><span class="code-enum-member">Red</span><span class="code-punctuation">;</span>
+
+    <span class="code-comment">/**
+     * The amount of fuel this car currently contains, in liters.
+     * Cannot exceed {<span class="code-doctag">@link</span> <span class="code-class">Car</span>#<span class="code-const">maxFuel</span>}
+     */</span>
+    <span class="code-keyword">private</span> <span class="code-keyword">int</span> <span class="code-attribute">fuelLevel</span><span class="code-punctuation">;</span>
+    <span class="code-comment">/**
+     * A getter for this car's fuel level
+     * <span class="code-doctag">@see</span> {<span class="code-doctag">@link</span> <span class="code-class">Car</span>#<span class="code-const">fuelLevel</span>}
+     * <span class="code-doctag">@return</span> The amount of fuel in this car
+     */</span>
+    <span class="code-keyword">public</span> <span class="code-keyword">int</span> <span class="code-method">getFuelLevel</span><span class="code-punctuation">() {</span> <span class="code-control-flow">return</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">fuelLevel</span><span class="code-punctuation">; }</span>
+
+    <span class="code-comment">/**
+     * The maximum amount of fuel, in liters, this car can hold
+     */</span>
+    <span class="code-keyword">public</span> <span class="code-keyword">final</span> <span class="code-keyword">int</span> <span class="code-const">maxFuel</span><span class="code-punctuation">;</span>
+    <span class="code-comment">/**
+     * The type of engine this car uses
+     */</span>
+    <span class="code-keyword">public</span> <span class="code-keyword">final</span> <span class="code-enum">EngineType</span> <span class="code-const">engine</span><span class="code-punctuation">;</span>
+    <span class="code-comment">/**
+     * The type of tires this car is equipped with
+     */</span>
+    <span class="code-keyword">public</span> <span class="code-keyword">final</span> <span class="code-enum">TireType</span> <span class="code-const">tire</span><span class="code-punctuation">;</span>
+    <span class="code-comment">/**
+     * This car's color
+     */</span>
+    <span class="code-keyword">public</span> <span class="code-keyword">final</span> <span class="code-enum">Colors</span> <span class="code-const">color</span><span class="code-punctuation">;</span>
+
+    <span class="code-comment">/**
+     * A private constructor used by {<span class="code-doctag">@link</span> <span class="code-class">CarBuilder</span>} in order to construct a new {<span class="code-doctag">@link</span> <span class="code-class">Car</span>}
+     * <span class="code-doctag">@param</span> engine The type of engine this car uses
+     * <span class="code-doctag">@param</span> tire The type of tires this car is equipped with
+     * <span class="code-doctag">@param</span> color This car's color
+     * <span class="code-doctag">@param</span> maxFuel The maximum amount of fuel, in liters, this car can hold
+     */</span>
+    <span class="code-keyword">private</span> <span class="code-class">Car</span><span class="code-punctuation">(</span><span class="code-enum">EngineType</span> <span class="code-parameter">engine</span><span class="code-punctuation">,</span> <span class="code-enum">TireType</span> <span class="code-parameter">tire</span><span class="code-punctuation">,</span> <span class="code-enum">Colors</span> <span class="code-parameter">color</span><span class="code-punctuation">,</span> <span class="code-keyword">int</span> <span class="code-parameter">maxFuel</span><span class="code-punctuation">) {</span>
+        <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">fuelLevel</span> <span class="code-operator">=</span> <span class="code-parameter">maxFuel</span><span class="code-punctuation">;</span>
+        <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-const">maxFuel</span> <span class="code-operator">=</span> <span class="code-parameter">maxFuel</span><span class="code-punctuation">;</span>
+        <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-const">engine</span> <span class="code-operator">=</span> <span class="code-parameter">engine</span><span class="code-punctuation">;</span>
+        <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-const">tire</span> <span class="code-operator">=</span> <span class="code-parameter">tire</span><span class="code-punctuation">;</span>
+        <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-const">color</span> <span class="code-operator">=</span> <span class="code-parameter">color</span><span class="code-punctuation">;</span>
+    <span class="code-punctuation">}</span>
+<span class="code-punctuation">}</span>
+</pre>
+            </code>
+        </div>
+        <div class="code-block">
+            <label class="incorrect">Incorrect:</label>
+            <code>
+                <pre>
+<span class="code-keyword">class</span> <span class="code-class">Car</span> <span class="code-punctuation">{</span>
+    <span class="code-keyword">public</span> <span class="code-keyword">static</span> <span class="code-keyword">class</span> <span class="code-class">CarBuilder</span> <span class="code-punctuation">{</span>
+        <span class="code-keyword">public</span> <span class="code-keyword">boolean</span> <span class="code-method">isInValidState</span><span class="code-punctuation">() {</span>
+            <span class="code-keyword">boolean</span> <span class="code-variable">result</span> <span class="code-operator">=</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">engine</span> <span class="code-operator">!=</span> <span class="code-literal">null</span> <span class="code-operator">&&</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">tire</span> <span class="code-operator">!=</span> <span class="code-literal">null</span> <span class="code-operator">&&</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">maxFuel</span> <span class="code-operator">!=</span> <span class="code-literal">null</span><span class="code-punctuation">;</span>
+
+            <span class="code-control-flow">return</span> <span class="code-variable">result</span><span class="code-punctuation">;</span>
+        <span class="code-punctuation">}</span>
+
+        <span class="code-keyword">private</span> <span class="code-enum">EngineType</span> <span class="code-attribute">engine</span><span class="code-punctuation">;</span>
+        <span class="code-keyword">private</span> <span class="code-enum">TireType</span> <span class="code-attribute">tire</span><span class="code-punctuation">;</span>
+        <span class="code-keyword">private</span> <span class="code-enum">Integer</span> <span class="code-attribute">maxFuel</span><span class="code-punctuation">;</span>
+        <span class="code-keyword">private</span> <span class="code-enum">Colors</span> <span class="code-attribute">color</span> <span class="code-operator">=</span> <span class="code-const">DEFAULT_COLOR</span><span class="code-punctuation">;</span>
+
+        <span class="code-keyword">public</span> <span class="code-class">CarBuilder</span> <span class="code-method">setEngine</span><span class="code-punctuation">(</span><span class="code-enum">EngineType</span> <span class="code-parameter">engine</span><span class="code-punctuation">)</span> <span class="code-keyword">throws</span> <span class="code-class">IllegalArgumentException</span> <span class="code-punctuation">{</span>
+            <span class="code-control-flow">if</span> <span class="code-punctuation">(</span><span class="code-parameter">engine</span> <span class="code-operator">==</span> <span class="code-literal">null</span><span class="code-punctuation">)</span>
+                <span class="code-control-flow">throw</span> <span class="code-keyword">new</span> <span class="code-class">IllegalArgumentException</span><span class="code-punctuation">(</span><span class="code-string">"'engine' cannot be null"</span><span class="code-punctuation">);</span>
+
+            <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">engine</span> <span class="code-operator">=</span> <span class="code-parameter">engine</span><span class="code-punctuation">;</span>
+            <span class="code-control-flow">return</span> <span class="code-keyword">this</span><span class="code-punctuation">;</span>
+        <span class="code-punctuation">}</span>
+
+        <span class="code-keyword">public</span> <span class="code-class">CarBuilder</span> <span class="code-method">setTire</span><span class="code-punctuation">(</span><span class="code-enum">TireType</span> <span class="code-parameter">tire</span><span class="code-punctuation">)</span> <span class="code-keyword">throws</span> <span class="code-class">IllegalArgumentException</span> <span class="code-punctuation">{</span>
+            <span class="code-control-flow">if</span> <span class="code-punctuation">(</span><span class="code-parameter">tire</span> <span class="code-operator">==</span> <span class="code-literal">null</span><span class="code-punctuation">)</span>
+                <span class="code-control-flow">throw</span> <span class="code-keyword">new</span> <span class="code-class">IllegalArgumentException</span><span class="code-punctuation">(</span><span class="code-string">"'tire' cannot be null"</span><span class="code-punctuation">);</span>
+
+            <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">tire</span> <span class="code-operator">=</span> <span class="code-parameter">tire</span><span class="code-punctuation">;</span>
+            <span class="code-control-flow">return</span> <span class="code-keyword">this</span><span class="code-punctuation">;</span>
+        <span class="code-punctuation">}</span>
+
+        <span class="code-keyword">public</span> <span class="code-class">CarBuilder</span> <span class="code-method">setMaxFuel</span><span class="code-punctuation">(</span><span class="code-keyword">int</span> <span class="code-parameter">maxFuel</span><span class="code-punctuation">) {</span>
+            <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">maxFuel</span> <span class="code-operator">=</span> <span class="code-parameter">maxFuel</span><span class="code-punctuation">;</span>
+            <span class="code-control-flow">return</span> <span class="code-keyword">this</span><span class="code-punctuation">;</span>
+        <span class="code-punctuation">}</span>
+
+        <span class="code-keyword">public</span> <span class="code-class">CarBuilder</span> <span class="code-method">setColor</span><span class="code-punctuation">(</span><span class="code-enum">Colors</span> <span class="code-parameter">color</span><span class="code-punctuation">)</span> <span class="code-keyword">throws</span> <span class="code-class">IllegalArgumentException</span> <span class="code-punctuation">{</span>
+            <span class="code-control-flow">if</span> <span class="code-punctuation">(</span><span class="code-parameter">color</span> <span class="code-operator">==</span> <span class="code-literal">null</span><span class="code-punctuation">)</span>
+                <span class="code-control-flow">throw</span> <span class="code-keyword">new</span> <span class="code-class">IllegalArgumentException</span><span class="code-punctuation">(</span><span class="code-string">"'color' cannot be null"</span><span class="code-punctuation">);</span>
+
+            <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">color</span> <span class="code-operator">=</span> <span class="code-parameter">color</span><span class="code-punctuation">;</span>
+            <span class="code-control-flow">return</span> <span class="code-keyword">this</span><span class="code-punctuation">;</span>
+        <span class="code-punctuation">}</span>
+
+        <span class="code-keyword">public</span> <span class="code-class">Car</span> <span class="code-method">construct</span><span class="code-punctuation">()</span> <span class="code-keyword">throws</span> <span class="code-class">IllegalStateException</span> <span class="code-punctuation">{</span>
+            <span class="code-control-flow">if</span> <span class="code-punctuation">(</span><span class="code-operator">!</span><span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-method">isInValidState</span><span class="code-punctuation">())</span>
+                <span class="code-control-flow">throw</span> <span class="code-keyword">new</span> <span class="code-class">IllegalStateException</span><span class="code-punctuation">(</span><span class="code-string">"Builder is in invalid state"</span><span class="code-punctuation">);</span>
+
+            <span class="code-control-flow">return</span> <span class="code-keyword">new</span> <span class="code-class">Car</span><span class="code-punctuation">(</span><span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">engine</span><span class="code-punctuation">,</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">tire</span><span class="code-punctuation">,</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">color</span><span class="code-punctuation">,</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">maxFuel</span><span class="code-punctuation">);</span>
+        <span class="code-punctuation">}</span>
+    <span class="code-punctuation">}</span>
+
+    <span class="code-keyword">public</span> <span class="code-keyword">static</span> <span class="code-keyword">enum</span> <span class="code-enum">EngineType</span> <span class="code-punctuation">{</span>
+        <span class="code-enum-member">Diesel</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">EC</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Flat</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Inline</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Rotary</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">V</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">W</span>
+    <span class="code-punctuation">}</span>
+
+    <span class="code-keyword">public</span> <span class="code-keyword">static</span> <span class="code-keyword">enum</span> <span class="code-enum">TireType</span> <span class="code-punctuation">{</span>
+        <span class="code-enum-member">AllSeason</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Touring</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Summer</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Performance</span>
+    <span class="code-punctuation">}</span>
+
+    <span class="code-keyword">public</span> <span class="code-keyword">static</span> <span class="code-keyword">final</span> <span class="code-enum">Colors</span> <span class="code-const">DEFAULT_COLOR</span> <span class="code-operator">=</span> <span class="code-enum">Colors</span><span class="code-operator">.</span><span class="code-enum-member">Red</span><span class="code-punctuation">;</span>
+    <span class="code-keyword">public</span> <span class="code-keyword">static</span> <span class="code-keyword">enum</span> <span class="code-enum">Colors</span> <span class="code-punctuation">{</span>
+        <span class="code-enum-member">Black</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Blue</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Cyan</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Green</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Gray</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Magenta</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Red</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">White</span><span class="code-punctuation">,</span>
+        <span class="code-enum-member">Yellow</span>
+    <span class="code-punctuation">}</span>
+
+    <span class="code-keyword">private</span> <span class="code-keyword">int</span> <span class="code-attribute">fuelLevel</span><span class="code-punctuation">;</span>
+
+    <span class="code-keyword">private</span> <span class="code-keyword">int</span> <span class="code-attribute">maxFuel</span><span class="code-punctuation">;</span>
+
+    <span class="code-keyword">private</span> <span class="code-enum">EngineType</span> <span class="code-attribute">engine</span><span class="code-punctuation">;</span>
+
+    <span class="code-keyword">private</span> <span class="code-enum">TireType</span> <span class="code-attribute">tire</span><span class="code-punctuation">;</span>
+
+    <span class="code-keyword">private</span> <span class="code-enum">Colors</span> <span class="code-attribute">color</span><span class="code-punctuation">;</span>
+
+    <span class="code-keyword">private</span> <span class="code-class">Car</span><span class="code-punctuation">(</span><span class="code-enum">EngineType</span> <span class="code-parameter">engine</span><span class="code-punctuation">,</span> <span class="code-enum">TireType</span> <span class="code-parameter">tire</span><span class="code-punctuation">,</span> <span class="code-enum">Colors</span> <span class="code-parameter">color</span><span class="code-punctuation">,</span> <span class="code-keyword">int</span> <span class="code-parameter">maxFuel</span><span class="code-punctuation">) {</span>
+        <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">fuelLevel</span> <span class="code-operator">=</span> <span class="code-parameter">maxFuel</span><span class="code-punctuation">;</span>
+        <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-const">maxFuel</span> <span class="code-operator">=</span> <span class="code-parameter">maxFuel</span><span class="code-punctuation">;</span>
+        <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-const">engine</span> <span class="code-operator">=</span> <span class="code-parameter">engine</span><span class="code-punctuation">;</span>
+        <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-const">tire</span> <span class="code-operator">=</span> <span class="code-parameter">tire</span><span class="code-punctuation">;</span>
+        <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-const">color</span> <span class="code-operator">=</span> <span class="code-parameter">color</span><span class="code-punctuation">;</span>
+    <span class="code-punctuation">}</span>
+
+
+
+    <span class="code-keyword">public</span> <span class="code-keyword">int</span> <span class="code-method">getMaxFuel</span> <span class="code-punctuation">() {</span>
+        <span class="code-control-flow">return</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">maxFuel</span><span class="code-punctuation">;</span>
+    <span class="code-punctuation">}</span>
+
+    <span class="code-keyword">public</span> <span class="code-enum">EngineType</span> <span class="code-method">getEngine</span> <span class="code-punctuation">() {</span>
+        <span class="code-control-flow">return</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">engine</span><span class="code-punctuation">;</span>
+    <span class="code-punctuation">}</span>
+
+    <span class="code-keyword">public</span> <span class="code-enum">TireType</span> <span class="code-method">getTire</span> <span class="code-punctuation">() {</span>
+        <span class="code-control-flow">return</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">tire</span><span class="code-punctuation">;</span>
+    <span class="code-punctuation">}</span>
+
+    <span class="code-keyword">public</span> <span class="code-enum">Colors</span> <span class="code-method">getColor</span> <span class="code-punctuation">() {</span>
+        <span class="code-control-flow">return</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">color</span><span class="code-punctuation">;</span>
+    <span class="code-punctuation">}</span>
+
+    <span class="code-keyword">public</span> <span class="code-keyword">int</span> <span class="code-method">getFuelLevel</span><span class="code-punctuation">() {</span>
+        <span class="code-control-flow">return</span> <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">fuelLevel</span><span class="code-punctuation">;</span>
+    <span class="code-punctuation">}</span>
+
+    <span class="code-keyword">public</span> <span class="code-keyword">void</span> <span class="code-method">setMaxFuel</span> <span class="code-punctuation">(</span><span class="code-keyword">int</span> <span class="code-parameter">maxFuel</span><span class="code-punctuation">) {</span>
+        <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">maxFuel</span> <span class="code-operator">=</span> <span class="code-parameter">maxFuel</span><span class="code-punctuation">;</span>
+    <span class="code-punctuation">}</span>
+
+    <span class="code-keyword">public</span> <span class="code-keyword">void</span> <span class="code-method">setEngine</span> <span class="code-punctuation">(</span><span class="code-enum">EngineType</span> <span class="code-parameter">engine</span><span class="code-punctuation">) {</span>
+        <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">engine</span> <span class="code-operator">=</span> <span class="code-parameter">engine</span><span class="code-punctuation">;</span>
+    <span class="code-punctuation">}</span>
+
+    <span class="code-keyword">public</span> <span class="code-keyword">void</span> <span class="code-method">setTire</span> <span class="code-punctuation">(</span><span class="code-enum">TireType</span> <span class="code-parameter">tire</span><span class="code-punctuation">) {</span>
+        <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">tire</span> <span class="code-operator">=</span> <span class="code-parameter">tire</span><span class="code-punctuation">;</span>
+    <span class="code-punctuation">}</span>
+
+    <span class="code-keyword">public</span> <span class="code-keyword">void</span> <span class="code-method">setColor</span> <span class="code-punctuation">(</span><span class="code-enum">Colors</span> <span class="code-parameter">color</span><span class="code-punctuation">) {</span>
+        <span class="code-keyword">this</span><span class="code-operator">.</span><span class="code-attribute">color</span> <span class="code-operator">=</span> <span class="code-parameter">color</span><span class="code-punctuation">;</span>
     <span class="code-punctuation">}</span>
 <span class="code-punctuation">}</span>
 </pre>

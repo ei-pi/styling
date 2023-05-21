@@ -146,7 +146,7 @@ code pre span[class^="code-"]:hover {
         color: #00000020;
     }
 
-    .code-paramater,
+    .code-parameter,
     .code-variable,
     .code-attribute,
     .code-property {
@@ -210,7 +210,7 @@ code pre span[class^="code-"]:hover {
         background-color: #00000010;
     }
 
-    .code-paramater:hover,
+    .code-parameter:hover,
     .code-variable:hover,
     .code-attribute:hover,
     .code-property:hover {
