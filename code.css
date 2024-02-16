@@ -1,7 +1,3 @@
-code pre span[class^="code-"]:hover {
-    cursor: pointer;
-}
-
 @media (prefers-color-scheme: dark) {
     .code-comment {
         color: #6A9955;
@@ -24,6 +20,7 @@ code pre span[class^="code-"]:hover {
     }
 
     .code-const,
+    .code-const-param,
     .code-enum-member,
     .code-readonly {
         color: #4FC1FF;
@@ -37,6 +34,8 @@ code pre span[class^="code-"]:hover {
     .code-type,
     .code-generic,
     .code-class,
+    .code-namespace,
+    .code-struct,
     .code-interface,
     .code-enum,
     .code-record,
@@ -88,6 +87,7 @@ code pre span[class^="code-"]:hover {
     }
 
     .code-const:hover,
+    .code-const-param:hover,
     .code-enum-member:hover,
     .code-readonly:hover {
         background-color: #4FC1FF40;
@@ -101,6 +101,8 @@ code pre span[class^="code-"]:hover {
     .code-type:hover,
     .code-generic:hover,
     .code-class:hover,
+    .code-namespace:hover,
+    .code-struct:hover,
     .code-interface:hover,
     .code-enum:hover,
     .code-record:hover,
@@ -154,6 +156,7 @@ code pre span[class^="code-"]:hover {
     }
 
     .code-const,
+    .code-const-param,
     .code-enum-member,
     .code-readonly {
         color: #0071C1;
@@ -167,6 +170,8 @@ code pre span[class^="code-"]:hover {
     .code-type,
     .code-generic,
     .code-class,
+    .code-namespace,
+    .code-struct,
     .code-interface,
     .code-enum,
     .code-record,
@@ -218,6 +223,7 @@ code pre span[class^="code-"]:hover {
     }
 
     .code-const:hover,
+    .code-const-param:hover,
     .code-enum-member:hover,
     .code-readonly:hover {
         background-color: #0071C140;
@@ -231,6 +237,8 @@ code pre span[class^="code-"]:hover {
     .code-type:hover,
     .code-generic:hover,
     .code-class:hover,
+    .code-namespace:hover,
+    .code-struct:hover,
     .code-interface:hover,
     .code-enum:hover,
     .code-record:hover,
