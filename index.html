@@ -640,8 +640,15 @@
             hand, some languages possess complex type systems where generics are very powerful—here, more descriptive
             though abbreviated names could be argued as more appropriate. Proper judgement on behalf of the programmer
             should be used to decide which approach is more beneficial.
-            <br>
-            <br>
+        </p>
+        <p>
+            In the specific case of loops, as mentioned earlier, it's totally acceptable to use single-letter
+            identifiers like <code>i</code>; in the case of nested loops, it's fine to continue with <code>j</code>,
+            <code>k</code>, etc, but it's advised to try and find more pertinent names for the counters: for example,
+            looping through a grid of some sort could be done with <code>x</code> and <code>y</code>, or
+            <code>grid</code> and <code>col</code>.
+        </p>
+        <p>
             <b>
                 And for the love of all that is sacred, do <u><em>not</em></u> prefix any variable name with "my"!!! Not
                 only is the variable not "yours", even if it were, no one would care.
@@ -985,7 +992,8 @@
             When writing documentation, keep it succinct and impersonal: clearly and quickly describe the object in
             question and use the passive voice. Use proper English (either American or British), and try to use
             pertinent vocabulary for the subject at hand—if a term is too confusing or too technical, provide a
-            definition for it or a link to some online resource explaining it.
+            definition for it or a link to some online resource explaining it. Prefer the usage of infinitives and
+            of the present tense, unless there's an obvious reason not to do so.
         </p>
         <h2>Peculiar control flow constructs (such as multiple <code>return</code>s, <code>break</code>,
             <code>continue</code>
