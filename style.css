@@ -2,6 +2,19 @@
     font-family: "Fira Code", "Menlo", monospace;
 }
 
+header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+header button {
+    border: none;
+}
+
+header button:hover {
+    cursor: pointer;
+}
+
 h1:hover,
 h2:hover,
 h3:hover {
@@ -14,7 +27,7 @@ div.code-block pre {
 }
 
 code {
-    font-family: "Menlo", monospace;
+    font-family: "Fira Code", "Menlo", monospace;
 }
 
 code pre {
@@ -38,6 +51,11 @@ td {
     body {
         background-color: #222;
         color: white;
+    }
+
+    header button {
+        background-color: #EEE;
+        color: #111;
     }
 
     code {
@@ -79,6 +97,11 @@ td {
     body {
         background-color: #EEE;
         color: #222;
+    }
+
+    header button {
+        background-color: #222;
+        color: #EEE;
     }
 
     code {
